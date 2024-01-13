@@ -1,27 +1,35 @@
 import login from '../../assets/others/authentication2.png'
 import loginBg from '../../assets/others/authentication.png'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa6";
-import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
-import { useEffect, useRef, useState } from 'react';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../providers/Authprovider';
+import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2'
 
 const Login = () => {
-    const captchaRef = useRef(null);
-    const [disabled, setDisabled] = useState(true)
-    useEffect(()=>{
+    const [disabled, setDisabled] = useState(true);
+    const { loginUser } = useContext(AuthContext);
+    const navigate = useNavigate()
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
+
+    useEffect(() => {
         loadCaptchaEnginge(6);
-    },[])
+    }, [])
 
 
-    const handleValidateCaptcha=()=>{
-        const user_captcha_value = captchaRef.current.value;
-        if(validateCaptcha(user_captcha_value)){
+    const handleValidateCaptcha = (event) => {
+        const user_captcha_value = event.target.value;
+        if (validateCaptcha(user_captcha_value)) {
             setDisabled(false)
         }
-        else{
+        else {
             setDisabled(true)
         }
-        console.log(user_captcha_value)
+        // console.log(user_captcha_value)
     }
 
 
@@ -32,9 +40,27 @@ const Login = () => {
         const password = form.password.value;
 
         console.log(email, password)
+
+        loginUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                Swal.fire({
+                    position: "top-center",
+                    icon: "success",
+                    title: "Log in Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                navigate(from, { replace: true });
+            })
+            .catch(error => console.log(error))
     }
     return (
         <div className="hero min-h-screen" style={{ backgroundImage: `url(${loginBg})` }}>
+            <Helmet>
+                <title>Bisrto Boss || Login </title>
+            </Helmet>
             <div className="hero-content shadow-2xl flex-col md:flex-row mx-40 my-20 px-10" style={{ backgroundImage: `url(${loginBg})` }}>
                 <div className="w-1/2">
                     <img src={login} alt="" />
@@ -60,8 +86,7 @@ const Login = () => {
                             <label className="label">
                                 <LoadCanvasTemplate />
                             </label>
-                            <input type="text" ref={captchaRef} placeholder="Fill Out from Above" name='captcha' className="input input-bordered" required />
-                            <button onClick={handleValidateCaptcha} className='btn btn-outline btn-xs mt-2'>Validate</button>
+                            <input type="text" onBlur={handleValidateCaptcha} placeholder="Fill Out from Above" name='captcha' className="input input-bordered" required />
                         </div>
                         <div className="form-control mt-6">
                             <button disabled={disabled} className="btn bg-yellow-400 hover:bg-yellow-500 text-white">Login</button>
