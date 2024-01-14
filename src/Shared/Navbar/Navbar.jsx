@@ -1,36 +1,47 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/Authprovider";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = () => {
 
-    const {user, logOut} = useContext(AuthContext);
-    const handleLogOut=()=>{
+    const { user, logOut } = useContext(AuthContext);
+    const handleLogOut = () => {
         logOut()
-        .then(()=>{
-            Swal.fire({
-                position: "top-center",
-                icon: "success",
-                title: "Log Out Successfully",
-                showConfirmButton: false,
-                timer: 1500
-              });
-        })
-        .catch(err=>console.log(err))
+            .then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "Log Out Successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            })
+            .catch(err => console.log(err))
     }
     const navOption = <>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/menu">Our Menu</Link></li>
         <li><Link to="/order/salad">Order Food</Link></li>
         <li><Link to="/secret">Secret</Link></li>
+        <li>
+            <Link to="/">
+                <button className="flex">
+                    <div className="text-3xl">
+                        <FaShoppingCart />
+                    </div>
+                    <div className="badge badge-secondary">+0</div>
+                </button>
+            </Link>
+        </li>
         {
             user ? <>
-            <li>
-            <button onClick={handleLogOut} className="btn btn-active btn-ghost">Logout</button>
-            </li>
+                {/* <li><Link to="/">{user?.displayName}</Link></li> */}
+                <li>
+                    <button onClick={handleLogOut} className="">Logout</button>
+                </li>
             </> : <>
-            <li><Link to="/login">Login</Link></li>
+                <li><Link to="/login">Login</Link></li>
             </>
         }
     </>

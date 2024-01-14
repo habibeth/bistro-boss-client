@@ -4,9 +4,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa6";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../providers/Authprovider';
+import { AuthContext } from '../../providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2'
+
 
 const Login = () => {
     const [disabled, setDisabled] = useState(true);
