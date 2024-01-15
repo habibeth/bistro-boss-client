@@ -5,10 +5,11 @@ import { MdRateReview } from "react-icons/md";
 import { MdOutlinePayment } from "react-icons/md";
 import { TbBrandBooking } from "react-icons/tb";
 import { IoMenu } from "react-icons/io5";
+import useAdmin from "../hooks/useAdmin";
 
 
 const Dashboard = () => {
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
     return (
         <div className="flex">
             <div className="w-64 min-h-screen bg-orange-400 pt-10">
