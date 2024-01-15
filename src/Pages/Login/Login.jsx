@@ -1,12 +1,12 @@
 import login from '../../assets/others/authentication2.png'
 import loginBg from '../../assets/others/authentication.png'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa6";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Helmet } from 'react-helmet-async';
 import Swal from 'sweetalert2'
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 
 
 const Login = () => {
@@ -47,7 +47,6 @@ const Login = () => {
                 const user = result.user;
                 console.log(user)
                 Swal.fire({
-                    position: "top-center",
                     icon: "success",
                     title: "Log in Successfully",
                     showConfirmButton: false,
@@ -93,15 +92,8 @@ const Login = () => {
                             <button disabled={disabled} className="btn bg-yellow-400 hover:bg-yellow-500 text-white">Login</button>
                         </div>
                     </form>
-                    <div className="text-center">
-                        <p className="mb-4">New to our website. Please <Link to="/register" className='text-green-600'>Create an Account</Link></p>
-                        <p>Or sign in with</p>
-                        <div className="text-2xl flex text-stone-700 justify-center my-4">
-                            <button className='px-2 py-2 mr-2 border border-stone-700 rounded-full'><FaFacebookF /></button>
-                            <button className='px-2 py-2 mr-2 border border-stone-700 rounded-full'><FaGoogle /></button>
-                            <button className='px-2 py-2 mr-2 border border-stone-700 rounded-full'><FaGithub /></button>
-                        </div>
-                    </div>
+                    <p className="mb-4 text-center">New to our website. Please <Link to="/register" className='text-green-600'>Create an Account</Link></p>
+                    <SocialLogin></SocialLogin>
                 </div>
             </div>
         </div>

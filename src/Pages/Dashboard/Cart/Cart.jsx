@@ -9,6 +9,7 @@ const Cart = () => {
     const totalPrice = cart.reduce((total, item) => total + item.price, 0);
     const axiosSecure = useAxiosSecure()
     
+    
     const handleDelete = (id) => {
         console.log(id)
         Swal.fire({
@@ -38,7 +39,7 @@ const Cart = () => {
         });
     }
     return (
-        <div className="pl-10 py-20">
+        <div className="pl-5 pt-10">
             <div className="flex justify-around">
                 <h2 className="text-4xl font-bold uppercase">Total orders: {cart.length}</h2>
                 <h2 className="text-4xl font-bold uppercase">total price: ${totalPrice}</h2>
