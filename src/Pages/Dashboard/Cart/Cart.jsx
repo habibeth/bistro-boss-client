@@ -2,14 +2,15 @@ import Swal from "sweetalert2";
 import useCart from "../../../hooks/useCart";
 import { MdDelete } from "react-icons/md";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 
 const Cart = () => {
     const [cart, refetch] = useCart();
     const totalPrice = cart.reduce((total, item) => total + item.price, 0);
     const axiosSecure = useAxiosSecure()
-    
-    
+
+
     const handleDelete = (id) => {
         console.log(id)
         Swal.fire({
@@ -43,7 +44,9 @@ const Cart = () => {
             <div className="flex justify-around">
                 <h2 className="text-4xl font-bold uppercase">Total orders: {cart.length}</h2>
                 <h2 className="text-4xl font-bold uppercase">total price: ${totalPrice}</h2>
-                <button className="btn btn-warning">Pay</button>
+                <Link to="/dashboard/payment">
+                    <button className="btn btn-warning">Pay</button>
+                </Link>
             </div>
             <div className="overflow-x-auto">
                 <table className="table">
