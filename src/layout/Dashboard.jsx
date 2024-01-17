@@ -6,10 +6,12 @@ import { MdOutlinePayment } from "react-icons/md";
 import { TbBrandBooking } from "react-icons/tb";
 import { IoMenu } from "react-icons/io5";
 import useAdmin from "../hooks/useAdmin";
+import useCart from "../hooks/useCart";
 
 
 const Dashboard = () => {
     const [isAdmin] = useAdmin();
+    const [cart] = useCart();
     return (
         <div className="flex">
             <div className="w-64 min-h-screen bg-orange-400 pt-10">
@@ -56,13 +58,13 @@ const Dashboard = () => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/payment">
+                                    <NavLink to="/dashboard/paymentHistory">
                                         <MdOutlinePayment /> payment history
                                     </NavLink>
                                 </li>
                                 <li>
                                     <NavLink to="/dashboard/cart">
-                                        <FaCartShopping /> My Cart
+                                        <FaCartShopping /> My Cart ({cart.length})
                                     </NavLink>
                                 </li>
                                 <li>

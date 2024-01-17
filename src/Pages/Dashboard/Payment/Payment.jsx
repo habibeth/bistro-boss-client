@@ -4,7 +4,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import CheckOutForm from './CheckOutForm';
 
 const Payment = () => {
-    const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK)
+    const stripePromise = loadStripe("pk_test_51OZPFzEaEs56zL8lwNlSY8x97PZiqHve1X9kzctzovzYzaqtd4JBvzY4PqDplmi1uuJR5yZ5Edcw7ctndN6DtVY500Y2eUTDeV")
     return (
         <div>
             <SharedTitle heading={"PAYMENT"} subheading={"Payment your Order here"}></SharedTitle>
